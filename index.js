@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = 5000;
 
+const config = require('./config/key');
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -9,7 +11,7 @@ const { User } = require('./models/User');
 
 app.listen(port, () => console.log(`express app listening on port ${port}!`));
 
-mongoose.connect('mongodb+srv://chillgu:abcd1234@boiler-plate-12xps.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
