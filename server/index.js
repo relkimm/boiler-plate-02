@@ -5,6 +5,7 @@ const port = 5000;
 const config = require('./config/key');
 
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const { User } = require('./models/User');
@@ -20,6 +21,7 @@ mongoose.connect(config.mongoURI, {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.get('/', (req, res) => res.send('hello nodemon!'));
 app.post('/register', (req, res) => {
@@ -44,6 +46,11 @@ app.post('/login', (req, res) => {
             if (!isMatch) return res.json({ loginSuccess: false, message: 'password is not correct' });
 
         });
-    })
 
+        userInfo.generateToken((err, user) => {
+            if (err) return res.json({ tokenSuccess: false, err });
+
+            res.cookie('x_auth', user.token).status(200).json({ tokenScucess: true, userId: user._id });
+        });
+    })
 })
