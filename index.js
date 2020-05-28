@@ -25,9 +25,25 @@ app.get('/', (req, res) => res.send('hello nodemon!'));
 app.post('/register', (req, res) => {
 
     const user = new User(req.body);
+    console.log(user);
     user.save((err, userInfo) => {
-        if (err) return res.json({ success: false, err });
+        if (err) return res.json({ registerSuccess: false, err });
 
-        return res.status(200).json({ success: true });
+        return res.status(200).json({ registerSuccess: true });
     });
+})
+
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    User.findOne({ email: email }, (err, userInfo) => {
+        if (err) return res.json({ loginSuccess: false, err });
+        if (!userInfo) return res.json({ loginSuccess: false, message: 'we cannot find the user' });
+
+        userInfo.comparePassword(password, (err, isMatch) => {
+            if (!isMatch) return res.json({ loginSuccess: false, message: 'password is not correct' });
+
+        });
+    })
+
 })
