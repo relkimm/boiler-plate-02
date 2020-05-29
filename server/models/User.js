@@ -73,7 +73,7 @@ userSchema.methods.generateToken = function (cb) {
         if (err) return cb(err);
 
         cb(null, user);
-    })
+    });
 }
 
 const User = mongoose.model('User', userSchema);

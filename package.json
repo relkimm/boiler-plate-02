@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "backend": "nodemon index.js",
+    "start": "node ./server/app.js",
+    "backend": "nodemon ./server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "chillgu",
