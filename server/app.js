@@ -23,5 +23,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.get('/', (req, res) => res.send('hello nodemon!'));
-app.use('/auth', require('./routes/authRouter'));
+app.get('/api', (req, res) => res.send('hello nodemon!'));
+app.use('/api/users', require('./routes/userRouter'));
