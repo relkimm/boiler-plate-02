@@ -9,7 +9,7 @@ const LoginPage = (props) => {
     const [email, setEmail] = useState('example.naver.com');
     const [password, setPassword] = useState('12345678');
 
-    const handleEmailChange = ({ tartget: { value } }) => {
+    const handleEmailChange = ({ target: { value } }) => {
         setEmail(value);
     }
 
