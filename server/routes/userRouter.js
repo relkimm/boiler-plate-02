@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/User');
+const { auth } = require('../middlewares/auth');
 
 router.post('/register', (req, res) => {
 
@@ -29,6 +30,31 @@ router.post('/login', (req, res) => {
             if (err) return res.json({ tokenSuccess: false, err });
 
             res.cookie('x_auth', user.token).status(200).json({ tokenSuccess: true, userId: user._id });
+        });
+    })
+})
+
+router.get('/auth', auth, (req, res) => {
+    const user = req.user;
+
+    res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.role === 0 ? false : true
+    })
+});
+
+router.get('/logout', auth, (req, res) => {
+    const user = req.user;
+
+    User.findOneAndUpdate({ _id: user._id }, {
+        token: ''
+    }, (err, user) => {
+        if (err) return res.json({ logoutSuccess: false, err });
+
+        res.status(200).json({
+            logoutSuccess: true
         });
     })
 })
