@@ -6,8 +6,8 @@ import { loginUser } from '../../../_actions/user_action';
 const LoginPage = (props) => {
     const dispatch = useDispatch();
 
-    const [email, setEmail] = useState('example.naver.com');
-    const [password, setPassword] = useState('12345678');
+    const [email, setEmail] = useState('test3@naver.com');
+    const [password, setPassword] = useState('12345');
 
     const handleEmailChange = ({ target: { value } }) => {
         setEmail(value);
