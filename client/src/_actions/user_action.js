@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { LOGIN_USER, REGISTER_USER, AUTH_USER } from './types';
-import { request } from 'express';
 
 
 export function loginUser(datatToSubmit) {
